@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>VUE2</title>
+
+</head>
+<body>
+    <div id='app'>
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var cmp1 = {
+            template : '<div>첫번째 지역 컴포넌트 : {{cmp1Data}} </div>',
+            data : function() {
+                return {
+                    cmp1Data : 100
+                }
+            }
+        }
+
+        var cmp2 = {
+            template : '<div>두번째 지역 컴포넌트 : {{cmp2Data}} </div>',
+            data : function() {
+                return {
+                    cmp2Data : cpm1.data.cmp1Data
+                }
+            }
+            
+        }
+
+        // 이렇게 하면 2번째 컴포넌트는 불러와지지않는다.
+        // cpm1을 불러올려면 루트를 거쳐 불러와야된다.
+
+        new Vue({
+            el:'#app',
+            components : {
+                'my-component1' : cmp1,
+                'my-component2' : cmp2
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

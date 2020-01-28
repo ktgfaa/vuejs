@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>VUE2</title>
+
+</head>
+<body>
+    <div id='app'>
+        <router-view></router-view>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script>
+        var User = {
+            template : '<div>유저 컴포넌트<router-view></router-view></div>'
+        }
+
+        var Userprofile = {
+            template : '<p>User profile</p>'
+        }
+
+        var UserPost = {
+            template : '<p>User Post</p>'
+        }
+
+
+        var router = new VueRouter({
+            routes : [
+            {path:'/user', component:User,children:[{path:'posts',component:UserPost},{path:'profiles',component:Userprofile}]}]
+            
+        })
+
+        var app = new Vue({
+            router
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>

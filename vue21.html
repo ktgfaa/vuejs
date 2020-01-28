@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>VUE2</title>
+
+</head>
+<body>
+    <div id='app'>
+        <button v-on:click="clickBtn">클릭</button>
+        <button v-on:click="clickBtn1(10)">클릭</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        var num = 1;
+        new Vue({
+            el:'#app',
+            methods: {
+                clickBtn : function() {
+                    alert('clicked' + num + 'times');
+                    num++;
+                },
+                clickBtn1 : function(num) {
+                    alert('clicked' + num + 'times');
+                    num++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
