@@ -24,8 +24,6 @@ export default {
       for(let i = 0;localStorage.length > i;i++){
         this.todoItems.push(localStorage.key(i));
       }
-    } else {
-      alert("공간을 채워주세요.");
     }
   },
   methods : {
@@ -41,7 +39,16 @@ export default {
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index,1);
     },
-    fixTodo(index){
+    fixTodo(todoItem,index){
+      const fxkey = document.getElementsByClassName('fix').item(index).value;
+      if(fxkey !== todoItem){
+      localStorage.removeItem(todoItem);
+      this.todoItems.splice(index,1);
+
+      localStorage.setItem(fxkey,fxkey);
+      this.todoItems.push(fxkey);
+      }
+      
     }
   },
   components : {

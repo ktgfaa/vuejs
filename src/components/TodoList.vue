@@ -1,17 +1,18 @@
 <template>
     <selection>
-        <ul>
+        <transition-group name="list" tag="ul">
             <li v-for="(todoItem,index) in propsData" class="shadow" v-bind:key="todoItem">
                 <i class="checkBtn fas fa-check" aria-hidden="true"/>
                 {{todoItem}}
-                <span class="fixBtn" type="button" @click="fixTodo(index)">
+                <input type="text" class="fix" placeholder="fixed" />
+                <span class="fixBtn" type="button" @click="fixTodo(todoItem,index)">
                 <i class="fas fa-wrench" aria-hidden="true"></i>
                 </span>
                 <span class="removeBtn" type="button" @click="removeTodo(todoItem,index)">
                 <i class="far fa-trash-alt" aria-hidden="true"/>
                 </span>
             </li>
-        </ul>
+        </transition-group>
     </selection>
 </template>
 
@@ -22,14 +23,26 @@ export default {
         removeTodo(todoItem,index) {
             this.$emit('removeTodo',todoItem,index);
         },
-        fixTodo(){
-            this.$emit('fixTodo',index);
-        }   
+        fixTodo(todoItem,index){
+            const fixed = document.getElementsByClassName("fix").item(index).value;
+            if( fixed !== ""){
+            const value = this.todoItem && this.todoItem.trim();
+            this.$emit('fixTodo',todoItem,index);
+            }
+            this.fixed = '';
+        }
     }
 }
 </script>
 
 <style>
+    .list-enter-active, .list-leave-active {
+        transition: all 1s;
+    }
+    .list-enter, .list-leave-to{
+        opacity: 0;
+        transform: translateY(30px);
+    }
     ul{
         list-style-type: none;
         padding-left: 0px;
@@ -45,6 +58,7 @@ export default {
         padding : 0 0.9rem;
         background : white;
         border-radius: 5px;
+        
     }
     .checkBtn {
         line-height: 45px;
@@ -56,7 +70,12 @@ export default {
         color:#DE4343;
     }
     .fixBtn {
-        margin-left: auto;
+        margin-left: 20px;
         color:#62ACDE;
+    }
+    .fix {
+        margin-left : auto;
+        margin-top : 5px;
+        height: 35px;
     }
 </style>
